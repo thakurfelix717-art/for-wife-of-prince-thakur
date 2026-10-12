@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Diksha ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #feada6 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      padding: 15px;
+    }
+
+    /* Envelope Landing Screen */
+    .envelope-wrapper {
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope-wrapper:hover {
+      transform: scale(1.05);
+    }
+
+    .envelope {
+      width: 290px;
+      height: 190px;
+      background: #e63946;
+      border-radius: 18px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 20px 40px rgba(230, 57, 70, 0.3);
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      border-left: 145px solid transparent;
+      border-right: 145px solid transparent;
+      border-top: 110px solid #d62828;
+      transform-origin: top;
+    }
+
+    .envelope-heart {
+      font-size: 55px;
+      z-index: 2;
+      animation: pulse 1.2s infinite alternate;
+    }
+
+    .click-text {
+      margin-top: 25px;
+      color: #900c3f;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(255,255,255,0.6);
+    }
+
+    /* Main Container */
+    .letter-container {
+      display: none;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 25px 20px;
+      border-radius: 28px;
+      box-shadow: 0 20px 45px rgba(184, 29, 69, 0.2);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      max-width: 450px;
+      width: 100%;
+      position: relative;
+      min-height: 520px;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* Polaroid Camera Photo Frame Styling */
+    .polaroid-frame {
+      background: #fff;
+      padding: 12px 12px 18px 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      border-radius: 4px;
+      transform: rotate(-2deg);
+      margin: 0 auto 20px auto;
+      max-width: 250px;
+      position: relative;
+      border: 1px solid #eaeaea;
+    }
+
+    .img-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background: #ffe6e8;
+      border-radius: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .polaroid-img {
+      width: 200px;
+      height: 220px;
+      object-fit: cover;
+      transform: rotate(90deg); /* Photo rotated 90deg */
+    }
+
+    .reserved-tag {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #b81d45;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      letter-spacing: 1px;
+      transform: rotate(5deg);
+      z-index: 10;
+    }
+
+    .polaroid-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 38px;
+      color: #b81d45;
+      text-align: center;
+      line-height: 1.1;
+      margin-top: 10px;
+    }
+
+    .polaroid-subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    /* Page Content */
+    .page {
+      display: none;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #332222;
+      text-align: left;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+
+    .page.active {
+      display: block;
+      animation: slideIn 0.5s ease-in-out;
+    }
+
+    /* Navigation Controls */
+    .nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(184, 29, 69, 0.15);
+    }
+
+    .nav-btn {
+      background: #b81d45;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(184, 29, 69, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: #d62828;
+    }
+
+    .page-indicator {
+      font-size: 13px;
+      font-weight: 600;
+      color: #b81d45;
+    }
+
+    /* Modal / Popup for Final Big Sorry */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 25px 20px;
+      border-radius: 25px;
+      text-align: center;
+      max-width: 330px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: popUp 0.5s ease-out;
+    }
+
+    .ending-photo {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .big-sorry {
+      font-size: 28px;
+      color: #b81d45;
+      font-weight: bold;
+      margin: 10px 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(15px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio: Golden Brown x Love Story Piano Mashup -->
+  <audio id="bg-music" loop>
+    <source src="https://files.catbox.moe/5m3l0d.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Envelope Landing Screen -->
+  <div class="envelope-wrapper" id="envelope-wrapper" onclick="openLetter()">
+    <div class="envelope">
+      <div class="envelope-heart">💌</div>
+    </div>
+    <div class="click-text">Tap to Open Your Letter ✨</div>
+  </div>
+
+  <!-- Multi-Page Letter Container -->
+  <div class="letter-container" id="letter-container">
+    <div>
+      
+      <!-- Polaroid Camera Photo Frame (Changes photo on each page) -->
+      <div class="polaroid-frame">
+        <div class="reserved-tag">RESERVED</div>
+        <div class="img-container">
+          <img class="polaroid-img" id="page-photo" src="diksha1.jpg" alt="Diksha Photo">
+        </div>
+        <div class="polaroid-title">Diksha</div>
+        <div class="polaroid-subtitle">Wife of Prince Thakur</div>
+      </div>
+
+      <!-- PAGE 1 -->
+      <div class="page active" id="page-1">
+mene kha bacchuuuuu.......ajj kal aap boht jada gussa ho rhi ho iska matlb aap kuch bhi krogiiii  ha woh baat hai ki tumne kuch kraa nhi bus thoda sa gussa kra mujh par ab kya kru apke prabhi ka gussa thoda high figh hai ab jhelo jese bhi pati mile hai haa ..mgr beta tumhare sth pati meh meh hi suit krunga or sab chiz meh vibe meh bhii or sab chizo meh bhii..
+      </div>
+
+      <!-- PAGE 2 -->
+      <div class="page" id="page-2">
+or haa meri thakurain jii...pehle toh meh dill se tumse maafi maagta huu kii yrr mene tumhe boht preshaan kr diyaa haii mgrr kya kru ab meh kisi se nhi bolta huu ab kisi or ka naam aaa jata hai toh meh pgla jata huu ab meh apka hi bacchaa hu toh apki saari aadtein aayi hai mere andar aab aap sambhaaliye iss bachee koo
+
+suno!!!!!!!!!!!! ..................mera cutiee ,  meri ras malai , mera boondi ka laddoo ,mera romantic sa bacchaaa or haa sbse main chiz bhul hi gya mehh mera personal student romance ka or patient...
+      </div>
+
+      <!-- PAGE 3 -->
+      <div class="page" id="page-3">
+ab suno bbyy yrr boht gussa ho chuka ab hmaari smjhne ki baari hai ase chlta rha toh boht durr ho jynge hum ik dusre se iss  liyee ab kam se kam 1 mhine ke liye toh koi ladai nhii kuch baat hogi toh saamne se solve krnege msg pr koi kuch nhi bolega.....yha intetion kuch or hota hai or baat kuch orr..issi liye
+
+orr meraa betuu .........meh sch btau toh meri life ka sabse kimti gift mujhe aaj mila hai yee sach bta rha hu akho meh aasu aa rhe the woh pdte pdte ki yrr mene tumhe kitna prehsaan kr diya mgr meh boht kussh hu aaj ki mene apni life meh ik achaa partner chuna haii .....or yehi mera godgift haii or bby abhi meh ye jaldi jaldi bna rha hu jesa ki meh janta hu abhi aap wait kr rhi ho mera toh meh abhi yhi khtm krta hu yha prr baateinn ..
+
+orr i lovvvvvvvveeeeeeeee youuuuuu meraa cute boyyy
+      </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>← Back</button>
+      <span class="page-indicator" id="page-num">Page 1 / 3</span>
+      <button class="nav-btn" id="next-btn" onclick="changePage(1)">Next →</button>
+    </div>
+  </div>
+
+  <!-- End Modal Popup with Together Photo -->
+  <div class="modal" id="sorry-modal">
+    <div class="modal-content">
+      <!-- Ending Together Photo -->
+      <img class="ending-photo" src="together.jpg" alt="Together Photo">
+      <div class="big-sorry">SORRY BBY 🥺❤️</div>
+      <p style="color: #555; font-size: 14px; margin-bottom: 20px;">Plz gussa chhod do na mera pyaara b बच्चा... I Love You So Much! 💖</p>
+      <button class="nav-btn" onclick="closeModal()">Love You Too! 🥰</button>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const totalPages = 3;
+
+    // Photos list for pages
+    const pagePhotos = {
+      1: 'diksha1.jpg',
+      2: 'diksha2.jpg',
+      3: 'diksha3.jpg'
+    };
+
+    function openLetter() {
+      document.getElementById('envelope-wrapper').style.display = 'none';
+      document.getElementById('letter-container').style.display = 'flex';
+
+      // Play background music
+      var audio = document.getElementById('bg-music');
+      audio.play().catch(function(e) {
+        console.log("Audio play blocked", e);
+      });
+    }
+
+    function changePage(direction) {
+      document.getElementById(`page-${currentPage}`).classList.remove('active');
+      currentPage += direction;
+
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+        document.getElementById('sorry-modal').style.display = 'flex';
+      }
+
+      document.getElementById(`page-${currentPage}`).classList.add('active');
+
+      // Change photo according to page
+      if (pagePhotos[currentPage]) {
+        document.getElementById('page-photo').src = pagePhotos[currentPage];
+      }
+
+      document.getElementById('prev-btn').disabled = (currentPage === 1);
+      
+      if (currentPage === totalPages) {
+        document.getElementById('next-btn').innerHTML = 'Finish ❤️';
+      } else {
+        document.getElementById('next-btn').innerHTML = 'Next →';
+      }
+
+      document.getElementById('page-num').innerText = `Page ${currentPage} / ${totalPages}`;
+    }
+
+    function closeModal() {
+      document.getElementById('sorry-modal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
